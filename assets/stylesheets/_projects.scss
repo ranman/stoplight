@@ -1,0 +1,66 @@
+$spacing: 5px;
+
+#projects-board {
+  font-family: 'Yanone Kaffeesatz', sans-serif;
+  padding: $spacing;
+  position: absolute;
+
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 201px;
+
+  h1 {
+    a {
+      color: #fff;
+      text-decoration: none;
+    }
+  }
+  h2 {
+    color: white;
+  }
+  figcaption {
+    color: white;
+  }
+  .wrapper {
+    float: left;
+    position: relative;
+
+    article.project {
+      position: absolute;
+      text-align: center;
+
+      top: $spacing;
+      right: $spacing;
+      bottom: $spacing;
+      left: $spacing;
+
+      &.unknown {
+        @include project-box($dark-gray);
+      }
+
+      &.success {
+        @include project-box($green);
+      }
+
+      &.failed {
+        @include project-box($red);
+      }
+
+      &.building {
+        @include project-box($yellow);
+      }
+
+      p.status {
+        margin-top: 10px;
+      }
+      ul.culprits {
+        text-align: center;
+        list-style-type: none;
+      }
+      ul.culprits li {
+        display: inline-block;
+      }
+    }
+  }
+}
