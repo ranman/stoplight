@@ -13,7 +13,7 @@ get '/' do
   @successful_projects = @projects.select { |project| project.passed? }
   @unsuccessful_projects = @projects.select { |project| !project.passed? }
 
-  size = @unsuccessful_projects.size
+  size = @projects.size
   @columns = case
   when size > 21 then 4.0
   when size > 10 then 3.0
@@ -21,7 +21,7 @@ get '/' do
   else 1.0
   end
 
-  @rows = (@unsuccessful_projects.size / @columns).ceil
+  @rows = (@projects.size / @columns).ceil
   @rows = [@rows, 1.0].max
 
   erb :index

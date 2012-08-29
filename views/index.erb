@@ -18,39 +18,19 @@
   </head>
 
   <body>
-    <aside id="mini-projects">
-      <% @projects.each do |project| %>
-        <a href="<%= project.build_url %>" class="project <%= project.last_build_status %> <%= project.current_status %>" target="_TOP">
-          <%= project.name %>
-          <% unless project.last_build_time.nil? %>
-            <time class="last-build-time" datetime="<%= project.last_build_time.iso8601 %>" title="<%= project.last_build_time %>">
-              <%= project.last_build_time.to_time.ago_in_words %>
-            </time>
-          <% end %>
-        </a>
-      <% end %>
-    </aside>
-
-
     <div id="projects-board">
-      <% if @unsuccessful_projects.empty? %>
-        <div class="wrapper">
-          <article class="project success">
-            <h1>
-              <a href="javascript:void();">&#x2713; Hooray!</a>
-            </h1>
-            <p class="status">All builds are passing!</p>
-          </article>
-        </div>
-      <% else %>
-        <% @unsuccessful_projects.each do |project| %>
+      <% @projects.each do |project| %>
           <div class="wrapper">
             <article class="project <%= project.last_build_status %> <%= project.current_status %>">
               <h1>
                 <a href="<%= project.build_url%>" target="_TOP"><%= project.name %></a>
               </h1>
-              <% unless project.culprits.nil? %>
+              <% unless project.culprits.empty? %>
+              <% if project.last_build_status.eql?("passed") %>
+                <h2>Heroes</h2>
+              <% else %>
                 <h2>Culprits</h2>
+              <% end %>
                 <ul class="culprits">
                   <% project.culprits.each do |culprit| %>
                     <li>
@@ -74,9 +54,8 @@
               </p>
             </article>
           </div>
-        <% end %>
       <% end %>
-    <div>
+    </div>
 
     <script src="http://code.jquery.com/jquery-1.7.2.min.js"></script>
     <script src="javascripts/application.js"></script>
